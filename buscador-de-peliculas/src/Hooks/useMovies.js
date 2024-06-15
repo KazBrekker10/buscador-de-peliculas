@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 export function useMovies(movie){
     const [movieList,setMovieList] = useState([])
     useEffect(()=>{
+      if (!movie) return;
       fetch(`https://www.omdbapi.com/?apikey=c661f91c&s=${movie}`)
             .then(response=>response.json())
             .then(data=> {
@@ -12,6 +13,6 @@ export function useMovies(movie){
               
             })
       }
-    ,[])
+    ,[movie])
     return {movies: movieList}
   }

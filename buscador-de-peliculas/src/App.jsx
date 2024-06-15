@@ -5,9 +5,10 @@ import {useState, useRef, useEffect} from 'react';
 import { handleSubmit,handleChange } from './logic/eventHandlers';
 
 function App() {
-  const {movies} = useMovies("harry potter");
+  const [search, setSearch] = useState("")
   const [query,setQuery] = useState("");
   const [error,setError] = useState(null);
+  const {movies} = useMovies(search);
 
   useEffect(()=>{
     if (query === ""){
@@ -32,7 +33,9 @@ function App() {
         <h1 className='text-3xl font-bold'>Buscador de peliculas</h1>
         {query && <h2>Pelicula buscada: {query}</h2>}
         <form className='form' onSubmit={event=>{
-          setQuery(handleSubmit(event))
+          const newQuery = handleSubmit(event)
+          setQuery(newQuery);
+          setSearch(newQuery);
         }}>
           <input name="query" value={query} placeholder='Avengers, Star Wars, The Matrix...' className='p-2 text-black rounded-md' onChange={event=>{
             setQuery(handleChange(event))
