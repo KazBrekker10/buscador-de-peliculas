@@ -2,7 +2,7 @@ import { MovieItem } from "./MovieItem";
 
 function ListOfMovies({ movies }){
     return (
-        <ul className='grid grid-cols-4 gap-4 px-6  [&>div>div]:text-black'>
+        <ul style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:"16px"}} className='px-6  [&>div>div]:text-black'>
       {movies.sort((a,b)=> a.year - b.year).map(movie=>{
 
         return (
@@ -14,7 +14,7 @@ function ListOfMovies({ movies }){
 }
  function NoMoviesResult(){
     return (
-        <p>No se encontraron peliculas para este busqueda</p>
+        <p className="text-center">No se encontraron peliculas para este busqueda</p>
     )
 }
 

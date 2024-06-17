@@ -1,32 +1,15 @@
 import './App.css'
 import { Movies } from './Components/Movies';
-import {useMovies} from './Hooks/useMovies';
 import {useState, useRef, useEffect} from 'react';
+import {useMovies} from './Hooks/useMovies';
+import { useQueryControl } from './Hooks/useQueryControl';
 import { handleSubmit,handleChange } from './logic/eventHandlers';
 
 function App() {
   const [search, setSearch] = useState("")
   const [query,setQuery] = useState("");
-  const [error,setError] = useState(null);
+  const [currentQuery,error] = useQueryControl({query})
   const {movies} = useMovies(search);
-
-  useEffect(()=>{
-    if (query === ""){
-      setError("no se puede dejar espacio vacio");
-      return;
-    }
-    if (query.match(/^\d+$/)){
-      setError("no se puede incluir numeros");
-      return;
-    }
-    if (query.length<3){
-      setError("la pelicula debe tener al menos 3 caracteres")
-      return;
-    }
-    setError(null)
-  },[query])
-
-  
   return (
     <div>
       <header className='flex flex-col items-center gap-y-2 py-8'>
